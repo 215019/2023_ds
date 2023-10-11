@@ -1,53 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cube Clicker Game</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-    #container {
-      width: 100%;
-      height: 100vh;
-      position: relative;
-    }
-    .cube {
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      cursor: pointer;
-    }
-  </style>
+    <style>
+        .game-container {
+            width: 400px;
+            height: 600px;
+            position: relative;
+            border: 1px solid #000;
+            overflow: hidden;
+        }
+
+        .square {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            background-color: red;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <div id="container"></div>
-  <script>
-    const colors = ['#FF0000', '#FFA500', '#FFFF00', '#008000', '#0000FF', '#4B0082', '#8B00FF'];
-    const container = document.getElementById('container');
+<div class="game-container" id="game-container"></div>
+<script>
+    // 配色のリスト
+    const colors = ["red", "blue", "green", "yellow", "orange", "purple", "pink"];
 
-    function createRandomCube() {
-      const cube = document.createElement('div');
-      cube.className = 'cube';
-      cube.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      cube.style.left = `${Math.random() * (window.innerWidth - 50)}px`;
-      cube.style.top = '0';
-      container.appendChild(cube);
+    // ゲームコンテナ
+    const gameContainer = document.getElementById("game-container");
 
-      cube.addEventListener('click', () => {
-        container.removeChild(cube);
-      });
+    // スコア
+    let score = 0;
 
-      const fallInterval = setInterval(() => {
-        const currentTop = parseInt(cube.style.top);
-        if (currentTop + 5 < window.innerHeight - 50) {
-          cube.style.top = (currentTop + 5) + 'px';
-        } else {
-          clearInterval(fallInterval);
-          container.removeChild(cube);
+    // クリック時の処理
+    function handleClick(event) {
+        if (event.target.classList.contains("square")) {
+            event.target.remove();
+            score++;
+            updateScore();
         }
-      }, 20);
     }
 
-    setInterval(createRandom
+    // スコアを更新
+    function updateScore() {
+        document.getElementById("score").textContent = `Score: ${score}`;
+    }
+
+    // 新しい四角を作成して画面に追加
+    function createSquare() {
+        const square = document.createElement("div");
+        square.classList.add("square");
+        square.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        square.style.left = `${Math.random() * (gameContainer.clientWidth - 50)}px`;
+        gameContainer.appendChild(square);
+
+        // クリックイベントのリスナーを追加
+        square.addEventListener("click", handleClick);
+
+        // アニメーション
+        const speed = Math.random() * 2 + 1; // 1から3のランダムな速度
+        const animationInterval = setInterval(() => {
+            const currentTop = parseFloat(square.style.top || 0);
+            square.style.top = `${currentTop + speed}px`;
+
+            if (currentTop > gameContainer.clientHeight) {
+                square.remove();
+                clearInterval(animationInterval);
+            }
+        }, 10);
+    }
+
+    // ゲームループ
+    function gameLoop() {
+        createSquare();
+        setTimeout(gameLoop, 1000); // 1秒ごとに新しい四角を作成
+    }
+
+    // ゲーム開始
+    gameLoop();
+
+    // スコア表示の要素を追加
+    const scoreElement = document.createElement("div");
+    scoreElement.id = "score";
+    scoreElement.textContent = "Score: 0";
+    gameContainer.appendChild(scoreElement);
+</script>
+</body>
+</html>
