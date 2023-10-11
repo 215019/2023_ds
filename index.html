@@ -60,7 +60,7 @@
         // アニメーション
         const speed = Math.random() * 2 + 1; // 1から3のランダムな速度
         const animationInterval = setInterval(() => {
-            const currentTop = parseFloat(square.style.top || 0);
+            const currentTop = parseFloat(square.style.top) || 0;
             square.style.top = `${currentTop + speed}px`;
 
             if (currentTop > gameContainer.clientHeight) {
@@ -89,7 +89,7 @@
     const gameInstructions = document.createElement("div");
     gameInstructions.textContent = "ダブルクリックしてキューブを消そう！";
     gameContainer.appendChild(gameInstructions);
-
+    
 </script>
 </body>
 </html>
