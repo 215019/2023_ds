@@ -51,6 +51,7 @@
         square.classList.add("square");
         square.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
         square.style.left = `${Math.random() * (gameContainer.clientWidth - 50)}px`;
+        square.style.top = '0';
         gameContainer.appendChild(square);
 
         // クリックイベントのリスナーを追加
