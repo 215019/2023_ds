@@ -39,7 +39,6 @@
         container.removeChild(cube);
       });
 
-      // Cube falls
       const fallInterval = setInterval(() => {
         const currentTop = parseInt(cube.style.top);
         if (currentTop + 5 < window.innerHeight - 50) {
@@ -51,8 +50,4 @@
       }, 20);
     }
 
-    // Create cubes at regular intervals
-    setInterval(createRandomCube, 2000);
-  </script>
-</body>
-</html>
+    setInterval(createRandom
