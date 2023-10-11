@@ -10,7 +10,7 @@
 -**太字**
 
 ---
-[大学HP](https://www.ncu.αc.jp)
+[大学HP](https://www.nagoya-cu.αc.jp)
 ---
 ![画像](https://www.nagoya-cu.αc.jp/sdα/common/image/header-logo.png)
 ---
