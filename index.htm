@@ -84,6 +84,12 @@
     scoreElement.id = "score";
     scoreElement.textContent = "Score: 0";
     gameContainer.appendChild(scoreElement);
+
+    // ダブルクリックしてキューブを消そう！テキストを表示
+    const gameInstructions = document.createElement("div");
+    gameInstructions.textContent = "ダブルクリックしてキューブを消そう！";
+    gameContainer.appendChild(gameInstructions);
+    
 </script>
 </body>
 </html>
